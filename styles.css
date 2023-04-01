@@ -1,0 +1,42 @@
+.container {
+    width:500px;
+    height: 500px;
+    border: 1px solid #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+  .container img {
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .col {
+    flex: 1 0 25%;
+    max-width: 25%;
+    box-sizing:border-box;
+    padding: 2px;
+  }
+  .col img {
+    display: block;
+    max-width: 100%;
+    width: 600px;
+    height: auto;
+    margin: 0 auto;
+  }
+  #imgGrid {
+    max-width: 1000px;
+    max-height: 1000px;
+    margin: auto;
+  }
+  
