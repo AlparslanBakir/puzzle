@@ -1,18 +1,45 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
     <title>Görsel Yükleme</title>
   </head>
   <body>
     <form>
       <input type="file" id="imgFile" accept="image/*" />
     </form>
-    <div class="container">
+    <div class="container" id="previewContainer">
       <img id="imgPreview" src="#" alt="Görsel yüklenmedi" />
     </div>
-    <div class="row" id="imgGrid"></div>
-        <script src="script.js"></script>
-
+    <button id="startbtn">Başla</button>
+    <button style="visibility: hidden" id="endbtn">Bitir</button>
+    <div style="visibility: hidden" class="row" id="imgGrid"></div>
+    <script src="script.js"></script>
   </body>
+  <script>
+    const startbtn = document.getElementById("startbtn");
+    const endbtn = document.getElementById("endbtn");
+    const hiddenDiv = document.getElementById("imgGrid");
+    const prv = document.getElementById("previewContainer");
+
+    startbtn.addEventListener("click", function () {
+      hiddenDiv.style.visibility = "visible";
+      prv.style.visibility = "hidden";
+      prv.style.position = "absolute";
+      startbtn.style.visibility = "hidden";
+      endbtn.style.visibility = "visible";
+    });
+
+    endbtn.addEventListener("click", function () {
+      hiddenDiv.style.visibility = "hidden";
+      prv.style.visibility = "visible";
+      prv.style.position = "relative";
+      startbtn.style.visibility = "visible";
+      endbtn.style.visibility = "visible";
+      const cols = document.querySelectorAll(".col");
+      cols.forEach(function (col) {
+        col.remove();
+      });
+    });
+  </script>
 </html>

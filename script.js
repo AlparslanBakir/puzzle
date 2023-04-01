@@ -46,4 +46,5 @@ function splitImage() {
     }
   };
   img.src = imgPreview.src;
+  
 }
