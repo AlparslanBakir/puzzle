@@ -20,23 +20,24 @@ function splitImage() {
   img.onload = function () {
     const imgWidth = img.width;
     const imgHeight = img.height;
-    const tileSize = Math.min(imgWidth, imgHeight) / 4;
+    const tileSizeW = Math.min(imgWidth, imgHeight) / 4;
+    const tileSizeH = Math.min(imgWidth, imgHeight) / 4;
     const canvas = document.createElement("canvas");
-    canvas.width = tileSize;
-    canvas.height = tileSize;
+    canvas.width = tileSizeW;
+    canvas.height = tileSizeH;
     const ctx = canvas.getContext("2d");
     for (let y = 0; y < 4; y++) {
       for (let x = 0; x < 4; x++) {
         ctx.drawImage(
           img,
-          x * tileSize,
-          y * tileSize,
-          tileSize,
-          tileSize,
+          x * tileSizeW,
+          y * tileSizeH,
+          tileSizeW,
+          tileSizeH,
           0,
           0,
-          tileSize,
-          tileSize
+          tileSizeW,
+          tileSizeH
         );
         const tile = document.createElement("div");
         tile.className = "col";

@@ -11,7 +11,7 @@
     <div class="container" id="previewContainer">
       <img id="imgPreview" src="#" alt="Görsel yüklenmedi" />
     </div>
-    <button id="startbtn">Başla</button>
+    <button id="startbtn" disabled>Başla</button>
     <button style="visibility: hidden" id="endbtn">Bitir</button>
     <div style="visibility: hidden" class="row" id="imgGrid"></div>
     <script src="script.js"></script>
@@ -21,6 +21,34 @@
     const endbtn = document.getElementById("endbtn");
     const hiddenDiv = document.getElementById("imgGrid");
     const prv = document.getElementById("previewContainer");
+    const imgFileRes = document.getElementById("imgFile");
+    const imgPreviewCheck = document.getElementById("imgPreview");
+
+    imgFileRes.addEventListener("change", function () {
+      if (imgPreviewCheck.src) {
+        startbtn.disabled = false;
+      } else {
+        startbtn.disabled = true;
+      }
+    });
+
+    imgPreviewCheck.addEventListener("load", function () {
+
+      const cols = document.querySelectorAll(".col");
+      cols.forEach(function (col) {
+        col.remove();
+      });
+      
+      if (imgPreviewCheck.src) {
+        startbtn.disabled = false;
+      } else {
+        startbtn.disabled = true;
+      }
+    });
+
+    imgPreviewCheck.addEventListener("error", function () {
+      startbtn.disabled = true;
+    });
 
     startbtn.addEventListener("click", function () {
       hiddenDiv.style.visibility = "visible";
@@ -35,11 +63,14 @@
       prv.style.visibility = "visible";
       prv.style.position = "relative";
       startbtn.style.visibility = "visible";
-      endbtn.style.visibility = "visible";
+      endbtn.style.visibility = "hidden";
       const cols = document.querySelectorAll(".col");
       cols.forEach(function (col) {
         col.remove();
       });
+
+      imgFileRes.value = "";
+      document.getElementById("imgPreview").src = " ";
     });
   </script>
 </html>
