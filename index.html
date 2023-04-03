@@ -38,7 +38,7 @@
       cols.forEach(function (col) {
         col.remove();
       });
-      
+
       if (imgPreviewCheck.src) {
         startbtn.disabled = false;
       } else {
@@ -56,6 +56,7 @@
       prv.style.position = "absolute";
       startbtn.style.visibility = "hidden";
       endbtn.style.visibility = "visible";
+      imgFileRes.style.visibility ="hidden";
     });
 
     endbtn.addEventListener("click", function () {
@@ -64,6 +65,7 @@
       prv.style.position = "relative";
       startbtn.style.visibility = "visible";
       endbtn.style.visibility = "hidden";
+      imgFileRes.style.visibility ="visible";
       const cols = document.querySelectorAll(".col");
       cols.forEach(function (col) {
         col.remove();
