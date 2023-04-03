@@ -82,6 +82,7 @@ function splitImage() {
 
   var a =-1;
   var b= -1;
+  let idNum=1;
   const img = document.createElement("img");
   img.onload = function () {
     const imgWidth = img.width;
@@ -111,19 +112,43 @@ function splitImage() {
         );
         const node = linkedList.grid[a][b];
         node.value='<img src="' + canvas.toDataURL() + '">';
-        const tile = document.createElement("div");
+        const tile = document.createElement("button");
         tile.className = "col";
+        tile.id=idNum;
+        idNum++;
         tile.innerHTML = node.value;
         
           
         imgGrid.appendChild(tile);
+        
       }
-    }
+    } swap();
   };
   img.src = imgPreview.src;
   
 }
 
+function swap(){
+const buttons = document.querySelectorAll(".col");
+let firstbutton = null;
+let secondbutton =null;
 
-
+buttons.forEach((button)=>{
+  button.addEventListener("click", function (){
+    
+    if (firstbutton == null){
+      firstbutton = button;
+    }
+    else{ 
+      
+      secondbutton = button;
+      var temp = firstbutton.innerHTML;
+      firstbutton.innerHTML = secondbutton.innerHTML;
+      secondbutton.innerHTML=temp;
+      firstbutton =null;
+      secondbutton= null;
+    }
+    
+  })
+});}
 
