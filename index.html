@@ -2,19 +2,50 @@
 <html>
   <head>
     <link rel="stylesheet" href="styles.css" />
-    <title>Görsel Yükleme</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.jpg">
+    <title>Kare Puzzle Oyunu</title>
+
+    <style>
+      .container {
+        margin: auto;
+      }
+    </style>
+
   </head>
   <body>
     <form>
-      <input type="file" id="imgFile" accept="image/*" />
+      <!-- <input type="file" id="imgFile" accept="image/*" /> -->
+      <!-- deneme upload-->
+      <label style="margin-left: 700px;"> Görsel Ekleyin
+        <input type="file" id="imgFile" accept="image/*" >
+      </label> 
+      <!--deneme bitti upload-->
     </form>
     <div class="container" id="previewContainer">
       <img id="imgPreview" src="#" alt="Görsel yüklenmedi" />
     </div>
-    <button id="startbtn" disabled>Başla</button>
+
+    <!-- İSİM EKLEME -->
+    <div class="form-group">
+      <p><b> Skor İçin İsim Girin:</b> </p>
+    <form role="form">
+        <input type="text" class="form-control" placeholder="İsim giriniz" name="name" style="padding: 8px;width: 200px;">
+    </form>
+    <button type="button" class="nameadd">Kaydet</button>
+        </div>
+        <div></div>
+    <ul class="list-unstyled" id="todo"></ul>
+    <!--  İSİM EKLEME BİTTİ-->
+
+    <button id="startbtn" style="margin-left: 700px;" disabled>Başla</button>
     <button style="visibility: hidden" id="endbtn">Bitir</button>
+    <!--KARIŞTIR BUTONU START-->
+    <button style="visibility:hidden" id="kar">Karıştır</button>
+    <!--KARIŞTIR BUTONU END-->
+
     <div style="visibility: hidden" class="row" id="imgGrid"></div>
     <script src="script.js"></script>
+
   </body>
   <script>
     const startbtn = document.getElementById("startbtn");
@@ -23,6 +54,8 @@
     const prv = document.getElementById("previewContainer");
     const imgFileRes = document.getElementById("imgFile");
     const imgPreviewCheck = document.getElementById("imgPreview");
+    const kar = document.getElementById("kar");// endbtn a bakarak ben ekledim
+    const nameadd = document.getElementById("nameadd");// endbtn a bakarak ben ekledim
 
     imgFileRes.addEventListener("change", function () {
       if (imgPreviewCheck.src) {
@@ -57,6 +90,8 @@
       startbtn.style.visibility = "hidden";
       endbtn.style.visibility = "visible";
       imgFileRes.style.visibility ="hidden";
+      kar.style.visibility="visible";// karıştır butonu 
+      nameadd.style.visibility="hidden";//isim ekleme kısmı
     });
 
     endbtn.addEventListener("click", function () {
@@ -65,7 +100,9 @@
       prv.style.position = "relative";
       startbtn.style.visibility = "visible";
       endbtn.style.visibility = "hidden";
-      imgFileRes.style.visibility ="visible";
+      nameadd.style.visibility="hidden";//isim ekleme kısmı
+      kar.style.visibility="hidden";// karıştır butonu 
+      imgFileRes.style.visibility ="hidden";//visible idi
       const cols = document.querySelectorAll(".col");
       cols.forEach(function (col) {
         col.remove();
@@ -74,5 +111,52 @@
       imgFileRes.value = "";
       document.getElementById("imgPreview").src = " ";
     });
+
+    //Karıştır butonu
+    kar.addEventListener("click", function () {
+      hiddenDiv.style.visibility = "hidden";
+      prv.style.visibility = "visible";
+      prv.style.position = "relative";
+      startbtn.style.visibility = "visible";
+      kar.style.visibility = "hidden";// üstten kopyalandığı için burda da olmalı
+      nameadd.style.visibility="hidden";//isim ekleme kısmı
+      imgFileRes.style.visibility ="hidden";// visible idi
+      const cols = document.querySelectorAll(".col");
+      cols.forEach(function (col) {
+        col.remove();
+      });
+
+      // imgFileRes.value = "";
+      // document.getElementById("imgPreview").src = " ";
+    });
+    //İsim ekleme kısmı görünmesin diye
+    nameadd.addEventListener("click", function () {
+      hiddenDiv.style.visibility = "hidden";
+      prv.style.visibility = "visible";
+      prv.style.position = "relative";
+      startbtn.style.visibility = "visible";
+      kar.style.visibility = "hidden";//kopyalandığı için eklendi unutma
+      nameadd.style.visibility="hidden";//isim ekleme kısmı
+      imgFileRes.style.visibility ="hidden";//visible idi
+      const cols = document.querySelectorAll(".col");
+      cols.forEach(function (col) {
+        col.remove();
+      });
+
+      // imgFileRes.value = "";
+      // document.getElementById("imgPreview").src = " ";
+    });
+
+
+    //İsim ekleme kısmı
+    $(document).ready(function () {
+    $('button').click(function () {
+        $('#todo').append("<ul>" + $("input[name=name]").val() + " <a href='#' class='close' aria-hidden='true'>&times;</a></ul>");
+    });
+    $("body").on('click', '#todo a', function () {
+        $(this).closest("ul").remove();
+    });
+});
+//isim ekleme bitti
   </script>
 </html>
