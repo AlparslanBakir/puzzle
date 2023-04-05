@@ -141,33 +141,44 @@ function splitImage() {
 
     let firstbuttonID = null;
     let secondbuttonID = null;
+    var firstNodeValue = null;
+    var secondNodeValue = null;
+    var firstNode = null;
+    var secondNode=null;
+    var tempFirstNodeValue=null;
     buttons.forEach((button) => {
       button.addEventListener("click", function () {
         if (firstbuttonID == null) {
           firstbuttonID = button.id;
-          console.log(firstbuttonID);
-          var firstNodeValue = findNodesWithValue(linkedList2.grid[0][0], firstbuttonID);
           
+          firstNode = findNodesWithValue(linkedList2.grid[0][0], firstbuttonID);
+          firstNodeValue = firstNode.value;
+          tempFirstNodeValue = firstNodeValue;
+          console.log(firstNodeValue);
           
         } else {
           secondbuttonID = button.id;
-          var secondNodeValue = findNodesWithValue(linkedList2.grid[0][0], secondbuttonID);
+           secondNode = findNodesWithValue(linkedList2.grid[0][0], secondbuttonID);
+            secondNodeValue = secondNode.value;
+          
           
           // tıklanan butonlarla aynı ID'ye sahip düğümlerin görsellerini değiştir
-          
-          
-          
-         
-
           const button_element = document.getElementById(firstbuttonID);
           button_element.innerHTML = secondNodeValue;
+          //değeri düğümde değiştir
+          firstNode.value = secondNodeValue;
+          secondNode.value = tempFirstNodeValue;
+          
           const button_element2 = document.getElementById(secondbuttonID);
           button_element2.innerHTML = firstNodeValue;
+          
           firstNodeValue= null;
           secondNodeValue=null;
           firstbuttonID= null;
           secondbuttonID=null;
-          tempValue= null;
+          console.log(firstNodeValue);
+          console.log(secondNodeValue);
+          
 
           // //tıklanan HTML elementlerinin ID'lerini değiştir
 
@@ -237,7 +248,7 @@ function findNodesWithValue(head, reqID) {
 
   while (currentNode != null) {
     if (currentNode.ID == reqID) {
-      return currentNode.value;
+      return currentNode;
     }
     currentNode = currentNode.next;
   }
