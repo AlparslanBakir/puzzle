@@ -71,22 +71,24 @@ function splitImage() {
       }
 
       this.size++;
-      
     }
   }
   const linkedList = new LinkedList();
-
+  const linkedList2 = new LinkedList();
   for (let i = 1; i <= 16; i++) {
     linkedList.addNode(i);
+    linkedList2.addNode(i);
   }
- // sıradaki düğüm pointerı : 1,2,3,4,5....16
+  // sıradaki düğüm pointerı : 1,2,3,4,5....16
   let currentNode = linkedList.grid[0][0];
+  let currentNode2 = linkedList2.grid[0][0];
   for (let i = 0; i < linkedList.size - 1; i++) {
     currentNode.next = linkedList.grid[Math.floor((i + 1) / 4)][(i + 1) % 4];
     currentNode = currentNode.next;
-    
+
+    currentNode2.next = linkedList2.grid[Math.floor((i + 1) / 4)][(i + 1) % 4];
+    currentNode2 = currentNode2.next;
   }
-  
 
   var a = -1;
   var b = -1;
@@ -119,90 +121,124 @@ function splitImage() {
           tileSizeH
         );
         const node = linkedList.grid[a][b];
+        const node2 = linkedList2.grid[a][b];
         node.value = '<img src="' + canvas.toDataURL() + '">';
+        node2.value = '<img src="' + canvas.toDataURL() + '">';
         const tile = document.createElement("button");
         tile.className = "col";
         tile.id = idNum;
         idNum++;
-        tile.innerHTML = node.value;
+        tile.innerHTML = node2.value;
 
         imgGrid.appendChild(tile);
       }
     }
-    
+
+
     //tıklanan butonların yerlerini değiştir
-    
-      const buttons = document.querySelectorAll(".col");
-      let firstbutton = null;
-      let secondbutton = null;
-      let firstbuttonID = null;
-      let secondbuttonID = null;
-      buttons.forEach((button) => {
-        button.addEventListener("click", function () {
-          if (firstbutton == null) {
-            firstbutton = button;
-            firstbuttonID = button.id;
-            var firstNodeID = findNodesWithValue(linkedList.grid[0][0], firstbuttonID);
-            var firstNodeValue = findNodesValueWithValue(linkedList.grid[0][0], firstbuttonID);
-            
-          } else {
-            secondbutton = button;
-            secondbuttonID = button.id;
-            var secondNodeID = findNodesWithValue(linkedList.grid[0][0], secondbuttonID);
-            var secondNodeValue = findNodesValueWithValue(linkedList.grid[0][0], secondbuttonID);
-            
-    
-             // tıklanan butonlarla aynı ID'ye sahip düğümlerin ID'lerini ve görselleri değiştir
-             var tempValue = firstNodeValue;
-             firstNodeValue = secondNodeValue;
-             secondNodeValue = tempValue;
-    
-            var tempID = firstNodeID;
-            firstNodeID = secondNodeID;
-            secondNodeID = tempID;
 
-    
-            //tıklanan HTML elementlerinin ID'lerini değiştir
-    
-            var tempHTMLid = firstbuttonID;
-            firstbuttonID = secondbuttonID;
-            secondbuttonID = tempHTMLid;
-          }
-        });
+    const buttons = document.querySelectorAll(".col");
+
+    let firstbuttonID = null;
+    let secondbuttonID = null;
+    buttons.forEach((button) => {
+      button.addEventListener("click", function () {
+        if (firstbuttonID == null) {
+          firstbuttonID = button.id;
+          console.log(firstbuttonID);
+          var firstNodeValue = findNodesWithValue(linkedList2.grid[0][0], firstbuttonID);
+          
+          
+        } else {
+          secondbuttonID = button.id;
+          var secondNodeValue = findNodesWithValue(linkedList2.grid[0][0], secondbuttonID);
+          
+          // tıklanan butonlarla aynı ID'ye sahip düğümlerin görsellerini değiştir
+          
+          
+          
+         
+
+          const button_element = document.getElementById(firstbuttonID);
+          button_element.innerHTML = secondNodeValue;
+          const button_element2 = document.getElementById(secondbuttonID);
+          button_element2.innerHTML = firstNodeValue;
+          firstNodeValue= null;
+          secondNodeValue=null;
+          firstbuttonID= null;
+          secondbuttonID=null;
+          tempValue= null;
+
+          // //tıklanan HTML elementlerinin ID'lerini değiştir
+
+          // var tempHTMLid = firstbuttonID;
+          // firstbuttonID = secondbuttonID;
+          // secondbuttonID = tempHTMLid;
+        }
       });
-    
-
+    });
   };
   img.src = imgPreview.src;
+  const startbtn = document.getElementById("startbtn");
+  startbtn.addEventListener("click", function () {
+    let x = Math.floor(Math.random() * 4);
+    let y = Math.floor(Math.random() * 4);
+    shuffle(linkedList2.grid[0][0],linkedList2.grid[x][y].value);
 
+    for(let m=0;m <4; m++){
+      for(let n=0; n<4;n++){
+        const node =linkedList2.grid[m][n];
+        const element = document.getElementById(node.ID);
+        element.innerHTML = node.value;
+      }
+    }
+    linkedList2.grid[x][y].placed = true;
+   
+  });
 
 }
 
+function shuffle(head,randomGrid){
+  
+  // Bağlı listenin image değerlerini bir diziye aktar
+var imageArray = [];
+var currentNode = head;
 
-// ilgili düğümü bul 
+while (currentNode !== null) {
+  // Belirli bir elemanın image değerini değiştirmemek için kontrol sağla
+  if (currentNode.value !== randomGrid) {
+    imageArray.push(currentNode.value);
+  }
+  currentNode = currentNode.next;
+}
+
+// Diziyi karıştır
+imageArray.sort(function() {
+  return 0.5 - Math.random();
+});
+
+// Bağlı listedeki elemanların image değerlerini karıştırılmış diziye göre güncelle
+currentNode = head;
+var i = 0;
+while (currentNode !== null) {
+  // Belirli bir elemanın image değerini değiştirmemek için kontrol sağla
+  if (currentNode.value !== randomGrid) {
+    currentNode.value = imageArray[i];
+    i++;
+  }
+  currentNode = currentNode.next;
+}
+  
+}
+
+// ilgili düğümü bul
 function findNodesWithValue(head, reqID) {
   let currentNode = head;
 
   while (currentNode != null) {
-    
     if (currentNode.ID == reqID) {
-      
-      return currentNode.ID;
-    }
-    currentNode = currentNode.next;
-  }
-}
-
-function findNodesValueWithValue(head, reqID) {
-  let currentNode = head;
-  
-  while (currentNode != null) {
-    
-    if (currentNode.ID == reqID) {
-      
       return currentNode.value;
     }
     currentNode = currentNode.next;
   }
 }
-
