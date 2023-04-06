@@ -24,6 +24,10 @@
     <div class="container" id="previewContainer">
       <img id="imgPreview" src="#" alt="Görsel yüklenmedi" />
     </div>
+    <div id="score">
+        <p>Skor:0 </p>
+    </div>
+
     <!-- İSİM EKLEME -->
     <div class="form-group">
       <p><b> Skor İçin İsim Girin:</b> </p>
@@ -90,6 +94,7 @@
       imgFileRes.style.visibility ="hidden";
       kar.style.visibility="visible";// karıştır butonu
       nameadd.style.visibility="hidden";//isim ekleme kısmı
+      
     });
 
     endbtn.addEventListener("click", function () {
