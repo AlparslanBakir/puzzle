@@ -29,23 +29,22 @@
     </div>
 
     <!-- İSİM EKLEME -->
-    <div class="form-group">
+    <div id="nameadd">
+      <div class="form-group">
       <p><b> Skor İçin İsim Girin:</b> </p>
     <form role="form">
         <input type="text" class="form-control" placeholder="İsim giriniz" name="name" style="padding: 8px;width: 200px;">
+            <button type="button" id="nameadd">Kaydet</button>
     </form>
-    <button type="button" id="nameadd">Kaydet</button>
         </div>
-        <div></div>
-    <ul class="list-unstyled" id="todo"></ul>
+    </div>
+    
     <!--  İSİM EKLEME BİTTİ-->
 
-    <button id="startbtn" style="margin-left: 700px;" disabled>Başla</button>
+    <button id="startbtn" style="margin-left: 700px;" disabled>Karıştır</button>
     <button style="visibility: hidden" id="endbtn" >Bitir</button>
-    <!--KARIŞTIR BUTONU START-->
-    <button style="visibility:hidden" id="kar" >Karıştır</button>
-    <!--KARIŞTIR BUTONU END-->
-    <div style="visibility: hidden" class="row" id="imgGrid"></div>
+    
+    <div style="visibility: hidden;margin-bottom: 80px;" class="row" id="imgGrid"></div>
     <script src="script.js"></script>
     
   </body>
@@ -56,7 +55,6 @@
     const prv = document.getElementById("previewContainer");
     const imgFileRes = document.getElementById("imgFile");
     const imgPreviewCheck = document.getElementById("imgPreview");
-    const kar=document.getElementById("kar");//
     const nameadd = document.getElementById("nameadd");// endbtn a bakarak ben ekledim
 
     imgFileRes.addEventListener("change", function () {
@@ -92,9 +90,9 @@
       startbtn.style.visibility = "hidden";
       endbtn.style.visibility = "visible";
       imgFileRes.style.visibility ="hidden";
-      kar.style.visibility="visible";// karıştır butonu
       nameadd.style.visibility="hidden";//isim ekleme kısmı
-      
+      nameadd.style.display="none";
+      imgFileRes.style.display="none";
     });
 
     endbtn.addEventListener("click", function () {
@@ -104,8 +102,10 @@
       startbtn.style.visibility = "visible";
       endbtn.style.visibility = "hidden";
       imgFileRes.style.visibility ="visible";
-      kar.style.visibility="hidden";// karıştır butonu
       nameadd.style.visibility="visible";//isim ekleme kısmı
+      nameadd.style.display="block";
+      imgFileRes.style.display="block";
+
       const cols = document.querySelectorAll(".col");
       cols.forEach(function (col) {
         col.remove();
@@ -113,43 +113,6 @@
 
       imgFileRes.value = "";
       document.getElementById("imgPreview").src = " ";
-    });
-
-    //////////////////////////
-    
-//     //Karıştır butonu
-//     kar.addEventListener("click", function () {
-//       hiddenDiv.style.visibility = "hidden";
-//       prv.style.visibility = "visible";
-//       prv.style.position = "relative";
-//       startbtn.style.visibility = "visible";
-//       kar.style.visibility = "hidden";// üstten kopyalandığı için burda da olmalı
-//       nameadd.style.visibility="hidden";//isim ekleme kısmı
-//       imgFileRes.style.visibility ="hidden";// visible idi
-//       const cols = document.querySelectorAll(".col");
-//       cols.forEach(function (col) {
-//         col.remove();
-//       });
-
-//       // imgFileRes.value = "";
-//       // document.getElementById("imgPreview").src = " ";
-//     });
-//     //İsim ekleme kısmı görünmesin diye
-    nameadd.addEventListener("click", function () {
-      hiddenDiv.style.visibility = "hidden";
-      prv.style.visibility = "visible";
-      prv.style.position = "relative";
-      startbtn.style.visibility = "visible";
-      kar.style.visibility = "hidden";//kopyalandığı için eklendi unutma
-      nameadd.style.visibility="hidden";//isim ekleme kısmı
-      imgFileRes.style.visibility ="hidden";//visible idi
-      const cols = document.querySelectorAll(".col");
-      cols.forEach(function (col) {
-        col.remove();
-      });
-
-      // imgFileRes.value = "";
-      // document.getElementById("imgPreview").src = " ";
     });
 
 
