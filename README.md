@@ -30,7 +30,7 @@ Burada kullanıcının yaptığı hamlelerin doğruluğuna göre belirlenen skor
 Oyunun işleyişi için ilk olarak parçanın gitmesi istenilen kısma ardından da asıl parçaya tıklanarak yer değiştirmeleridir.
 Kullanıcı oyunu bitirmek istediğinde üstte yer alan “Bitir” butonuna tıklayarak dilediği zaman oyunu bitirmektedir.
 
- ![Ekran görüntüsü 2023-04-07 040030](https://user-images.githubusercontent.com/75142552/230603480-45d6b946-44c8-4e22-9fe8-8b78d8cdae14.jpg)
+ ![Ekran görüntüsü 2023-04-07 133712](https://user-images.githubusercontent.com/75142552/230617412-4f957f4f-b203-4ef8-8ebd-ec4334dc0975.jpg)
 
 (Şekil 3:Oyun sayfası)
 
