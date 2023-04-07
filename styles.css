@@ -76,7 +76,8 @@ background: rgb(5, 15, 154);
    4px 4px 5px 0px rgba(0,0,0,.1);
   outline: none;
   font-family: "Cormorant Garamond", serif;
-  font-weight: 300;
+  font-weight: bolder;
+  font-size: 15px;
   text-align: center;
   border-radius: 5px;
 }
@@ -89,8 +90,7 @@ padding-right: 40px;
 display: table;
 color: #fff;
 margin: 40px;
-margin-top: 1px;
-margin-bottom: 1px;;
+margin-left: -175px;
 /**/
 background: rgb(5, 15, 154);
   background: linear-gradient(0deg, rgb(56, 62, 154) 0%, rgb(36, 46, 160) 100%);
@@ -101,7 +101,8 @@ background: rgb(5, 15, 154);
    4px 4px 5px 0px rgba(0,0,0,.1);
   outline: none;
   font-family: "Cormorant Garamond", serif;
-  font-weight: 300;
+  font-weight: bolder;
+  font-size: 15px;
   text-align: center;
   border-radius: 5px;
 }
@@ -130,31 +131,7 @@ background: rgb(5, 15, 154);
   border-radius: 5px;
 }
 /*UPLOAD BİTTİ*/
-/*KARIŞTIR BUTONU START*/
-button#kar {
-padding: 20px; 
-padding-left: 40px;
-padding-right: 40px;
-display: table;
-color: #fff;
-margin: 40px;
-margin-top: 1px;
-margin-bottom: 2px;
-/**/
-background: #5EB299;
-  background: linear-gradient(0deg, rgb(62, 142, 118) 0%, rgb(61, 150, 114) 100%);
-  border: none;
-  display: inline-block;
-   box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
-   7px 7px 20px 0px rgba(0,0,0,.1),
-   4px 4px 5px 0px rgba(0,0,0,.1);
-  outline: none;
-  font-family: "Cormorant Garamond", serif;
-  font-weight: 300;
-  text-align: center;
-  border-radius: 5px;
-}
-/*KARIŞTIR BUTONU END*/
+
 /*İSİM KAYIT*/
 form {
 display: inline-block;
@@ -177,7 +154,7 @@ padding-left: 10px;
 padding-right: 10px;
 display: table;
 color: #fff;
-margin: 20px;;
+margin: 10px;
 /**/
 background: rgb(5, 15, 154);
   background: linear-gradient(0deg, rgb(56, 62, 154) 0%, rgb(36, 46, 160) 100%);
@@ -192,3 +169,12 @@ background: rgb(5, 15, 154);
   text-align: center;
   border-radius: 5px;
 }
+/* SKOR GÖSTERME */
+#score{
+  font-family: "Cormorant Garamond", serif;
+  color: indigo;
+  font-weight: bolder;
+  font-size: 30px;
+  margin-left: 700px;
+}
+
