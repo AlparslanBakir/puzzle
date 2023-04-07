@@ -16,6 +16,7 @@ imgFile.addEventListener("change", function () {
 });
 
 function splitImage() {
+
   //bağlı liste
 
   class Node {
@@ -173,7 +174,7 @@ function splitImage() {
           button_element.innerHTML = secondNodeValue;
           //değeri düğümde değiştir
           firstNode.value = secondNodeValue;
-          secondNode.value = tempFirstNodeValue;  
+          secondNode.value = tempFirstNodeValue;
           // daha sonra butonları bulmak için ID'leri değiştir
           // firstNode.ID = secondNodeID;
           // secondNode.ID = tempFirstNodeID;
@@ -181,7 +182,8 @@ function splitImage() {
           console.log("2.nin id si ", secondNode.ID);
           const button_element2 = document.getElementById(secondbuttonID);
           button_element2.innerHTML = firstNodeValue;
-
+          countMove();
+          endGame(); // oyun bitti mi diye kontrol et
           firstNodeValue = null;
           secondNodeValue = null;
           firstbuttonID = null;
@@ -192,6 +194,9 @@ function splitImage() {
           var score = compareLists(head1, head2);
           const scoreTab = document.getElementById("score");
           scoreTab.innerHTML = ("Skor: ", score);
+          // moveCounter++; // hamle sayısını artır
+          // document.getElementById("moves").innerHTML = "Hamle sayısı: " + moveCounter; // hamle sayısını güncelle
+         
           // //tıklanan HTML elementlerinin ID'lerini değiştir
 
           // var tempHTMLid = firstbuttonID;
@@ -221,6 +226,7 @@ function splitImage() {
     ilkButton.disabled = true;
     ilkButton.style.backgroundColor = "rgba(0,255,0,1)";
   });
+
 }
 
 function shuffle(head, randomGrid) {
@@ -248,11 +254,11 @@ function shuffle(head, randomGrid) {
   while (currentNode !== null) {
     // Belirli bir elemanın image değerini değiştirmemek için kontrol sağla
     if (currentNode.value !== randomGrid) {
-      
+
       currentNode.value = imageArray[i];
       console.log(currentNode.ID);
-      
-      i++;  
+
+      i++;
     }
     currentNode = currentNode.next;
   }
@@ -269,16 +275,16 @@ function findNodesWithValue(head, reqID) {
     currentNode = currentNode.next;
   }
 }
-
+let placedNodes = [];
 function compareLists(head1, head2) {
   var score = 0;
+
   
-  let placedNodes = [];
   let currentNode = head2; // başlangıç düğümü
   while (currentNode !== null) {
     if (currentNode.placed === true) {
       placedNodes.push(currentNode);
-      console.log("doğru olan düğümler: " , placedNodes)
+      console.log("doğru olan düğümler: ", placedNodes)
     }
     currentNode = currentNode.next;
   }
@@ -289,112 +295,165 @@ function compareLists(head1, head2) {
     let result = [];
 
     while (node1 !== null) {
-      if(node2.value === node1.value){
+      if (node2.value === node1.value) {
         console.log(node2.ID);
-      if (
-        node1.north !== null &&
-        node2.north !== null &&
-        node2.north.value === node1.north.value
-      ) {
-        console.log(node2.north);
-        result.push(node2.north);
+        if (
+          node1.north !== null &&
+          node2.north !== null &&
+          node2.north.value === node1.north.value
+        ) {
+          console.log(node2.north);
+          result.push(node2.north);
+        }
+        if (
+          node1.northeast !== null &&
+          node2.northeast !== null &&
+          node2.northeast.value === node1.northeast.value
+        ) {
+          console.log(node2.northeast);
+          result.push(node2.northeast)
+        }
+        if (
+          node1.east !== null &&
+          node2.east !== null &&
+          node2.east.value === node1.east.value
+        ) {
+          console.log(node2.east);
+          result.push(node2.east)
+        }
+        if (
+          node1.southeast !== null &&
+          node2.southeast !== null &&
+          node2.southeast.value === node1.southeast.value
+        ) {
+          console.log(node2.southeast);
+          result.push(node2.southeast)
+        }
+        if (
+          node1.south !== null &&
+          node2.south !== null &&
+          node2.south.value === node1.south.value
+        ) {
+          console.log(node2.south);
+          result.push(node2.south)
+        }
+        if (
+          node1.southwest !== null &&
+          node2.southwest !== null &&
+          node2.southwest.value === node1.southwest.value
+        ) {
+          console.log(node2.southwest);
+          result.push(node2.southwest)
+        }
+        if (
+          node1.west !== null &&
+          node2.west !== null &&
+          node2.west.value === node1.west.value
+        ) {
+          console.log(node2.west);
+          result.push(node2.west)
+        }
+        if (
+          node1.northwest !== null &&
+          node2.northwest !== null &&
+          node2.northwest.value === node1.northwest.value
+        ) {
+          console.log(node2.northwest);
+          result.push(node2.northwest)
+        }
       }
-      if (
-        node1.northeast !== null &&
-        node2.northeast !== null &&
-        node2.northeast.value === node1.northeast.value
-      ) {
-        console.log(node2.northeast);
-        result.push(node2.northeast)
-      }
-      if (
-        node1.east !== null &&
-        node2.east !== null &&
-        node2.east.value === node1.east.value
-      ) {
-        console.log(node2.east);
-        result.push(node2.east)
-      }
-      if (
-        node1.southeast !== null &&
-        node2.southeast !== null &&
-        node2.southeast.value === node1.southeast.value
-      ) {
-        console.log(node2.southeast);
-        result.push(node2.southeast)
-      }
-      if (
-        node1.south !== null &&
-        node2.south !== null &&
-        node2.south.value === node1.south.value
-      ) {
-        console.log(node2.south);
-        result.push(node2.south)
-      }
-      if (
-        node1.southwest !== null &&
-        node2.southwest !== null &&
-        node2.southwest.value === node1.southwest.value
-      ) {
-        console.log(node2.southwest);
-        result.push(node2.southwest)
-      }
-      if (
-        node1.west !== null &&
-        node2.west !== null &&
-        node2.west.value === node1.west.value
-      ) {
-        console.log(node2.west);
-        result.push(node2.west)
-      }
-      if (
-        node1.northwest !== null &&
-        node2.northwest !== null &&
-        node2.northwest.value === node1.northwest.value
-      ) {
-        console.log(node2.northwest);
-        result.push(node2.northwest)
-      }
-    }
       node1 = node1.next;
     }
-    console.log("result döndü: ", result.length, " " , result)
+    console.log("result döndü: ", result.length, " ", result)
     return result;
-    
-    
+
+
   }
 
   for (let i = 0; i < placedNodes.length; i++) {
     let currentNode = placedNodes[i];
     let matchingNodes = findMatchingNode(currentNode, head1);
-    for(let i=0;i<matchingNodes.length;i++){
-      let matchingNode =matchingNodes[i];
-    if (matchingNode !== null && matchingNode.placed !== true) {
-      
-      matchingNode.placed = true;
-      if(matchingNode.placed == true){
-      placedNodes.push(matchingNode);
-      console.log("diziye atilan düğüm: ", matchingNode.ID);
+    for (let i = 0; i < matchingNodes.length; i++) {
+      let matchingNode = matchingNodes[i];
+      if (matchingNode !== null && matchingNode.placed !== true) {
 
-      var kilitlenecekID = matchingNode.ID;
-      console.log("kitlenecek" , kilitlenecekID);
+        matchingNode.placed = true;
+        if (matchingNode.placed == true) {
+          placedNodes.push(matchingNode);
+          console.log("diziye atilan düğüm: ", matchingNode.ID);
 
-      const kilitlenecek = document.getElementById(kilitlenecekID);
-      kilitlenecek.disabled = true;
-      kilitlenecek.style.backgroundColor = "rgba(0,255,0,1)";
+          var kilitlenecekID = matchingNode.ID;
+          console.log("kitlenecek", kilitlenecekID);
+
+          const kilitlenecek = document.getElementById(kilitlenecekID);
+          kilitlenecek.disabled = true;
+          kilitlenecek.style.backgroundColor = "rgba(0,255,0,1)";
+        }
+
+        //ilgili butonu kilitle
+        // var kilitlenecekID = matchingNode.ID;
+
+
+        score += 5;
+      } else {
+        score -= 10;
       }
-      
-      //ilgili butonu kilitle
-      // var kilitlenecekID = matchingNode.ID;
-      
-
-      score += 5;
-    } else {
-      score -= 10;
     }
-  }}
+  }
   return score;
 }
+let timerInterval;
+
+function startTimer() {
+  let seconds = 0;
+  const timerElement = document.getElementById('timer');
+
+  timerInterval = setInterval(() => {
+    seconds++;
+    timerElement.innerText = seconds;
+  }, 1000);
+}
+
+function stopTimer() {
+  clearInterval(timerInterval);
+  console.log('Süre:', document.getElementById('timer').innerText, 'saniye');
+}
+
+const startBtn = document.getElementById('startbtn');
+startBtn.addEventListener('click', startTimer); // start butonuna tıklandığında startTimer fonksiyonu çağrılır
+
+//hamle sayısını tutmak için 
+let moveCount = 0;
+
+function countMove() {
+  moveCount++;
+  const moveCountElement = document.getElementById('moveCount');
+  moveCountElement.innerText = moveCount;
+}
+
+const puzzle = document.getElementById('secondbuttonID'); // puzzle öğesini alın
+puzzle.addEventListener('click', countMove); // puzzle öğesine tıklandığında countMove fonksiyonu çağrılır
+
+
+function endGame() {
+  if (placedNodes.length === 15) {
+    clearInterval(timerInterval); // zamanlayıcıyı durdur
+    document.getElementById("moveCount").innerHTML += " Oyun bitti!"; // hamle sayısını güncelle
+    alert("Tebrikler! Oyunu tamamladınız!"); // kullanıcıyı tebrik etmek için bir mesaj göster
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 // function compareLists(head1, head2) {
 //   let node1 = head1;
