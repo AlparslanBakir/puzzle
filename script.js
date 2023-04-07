@@ -178,12 +178,10 @@ function splitImage() {
           // daha sonra butonları bulmak için ID'leri değiştir
           // firstNode.ID = secondNodeID;
           // secondNode.ID = tempFirstNodeID;
-          console.log("birincinin id si ", firstNode.ID);
-          console.log("2.nin id si ", secondNode.ID);
+          
           const button_element2 = document.getElementById(secondbuttonID);
           button_element2.innerHTML = firstNodeValue;
           countMove();
-          endGame(); // oyun bitti mi diye kontrol et
           firstNodeValue = null;
           secondNodeValue = null;
           firstbuttonID = null;
@@ -194,6 +192,7 @@ function splitImage() {
           var score = compareLists(head1, head2);
           const scoreTab = document.getElementById("score");
           scoreTab.innerHTML = ("Skor: ", score);
+          
           // moveCounter++; // hamle sayısını artır
           // document.getElementById("moves").innerHTML = "Hamle sayısı: " + moveCounter; // hamle sayısını güncelle
          
@@ -256,7 +255,7 @@ function shuffle(head, randomGrid) {
     if (currentNode.value !== randomGrid) {
 
       currentNode.value = imageArray[i];
-      console.log(currentNode.ID);
+      
 
       i++;
     }
@@ -284,7 +283,7 @@ function compareLists(head1, head2) {
   while (currentNode !== null) {
     if (currentNode.placed === true) {
       placedNodes.push(currentNode);
-      console.log("doğru olan düğümler: ", placedNodes)
+      
     }
     currentNode = currentNode.next;
   }
@@ -380,26 +379,27 @@ function compareLists(head1, head2) {
         matchingNode.placed = true;
         if (matchingNode.placed == true) {
           placedNodes.push(matchingNode);
-          console.log("diziye atilan düğüm: ", matchingNode.ID);
+          
+          
 
           var kilitlenecekID = matchingNode.ID;
-          console.log("kitlenecek", kilitlenecekID);
+          
 
           const kilitlenecek = document.getElementById(kilitlenecekID);
           kilitlenecek.disabled = true;
           kilitlenecek.style.backgroundColor = "rgba(0,255,0,1)";
+          
         }
 
         //ilgili butonu kilitle
         // var kilitlenecekID = matchingNode.ID;
 
 
-        score += 5;
-      } else {
-        score -= 10;
-      }
+        
+      } 
     }
   }
+  endGame(); // oyun bitti mi diye kontrol et
   return score;
 }
 let timerInterval;
@@ -431,12 +431,20 @@ function countMove() {
   moveCountElement.innerText = moveCount;
 }
 
-const puzzle = document.getElementById('secondbuttonID'); // puzzle öğesini alın
-puzzle.addEventListener('click', countMove); // puzzle öğesine tıklandığında countMove fonksiyonu çağrılır
+
 
 
 function endGame() {
-  if (placedNodes.length === 15) {
+  const buttonsCheck = document.querySelectorAll(".col");
+  let truelist = [];
+  buttonsCheck.forEach(function (col) {
+    if(col.disabled === true){
+      truelist.push(col);
+    }
+  });
+  console.log("liste",truelist.length);
+  if (truelist.length >= 15) {
+    
     clearInterval(timerInterval); // zamanlayıcıyı durdur
     document.getElementById("moveCount").innerHTML += " Oyun bitti!"; // hamle sayısını güncelle
     alert("Tebrikler! Oyunu tamamladınız!"); // kullanıcıyı tebrik etmek için bir mesaj göster
