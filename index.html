@@ -29,13 +29,15 @@
     </div>
 
     <!-- İSİM EKLEME -->
+    <div id="nameadd">
     <div class="form-group">
       <p><b> Skor İçin İsim Girin:</b> </p>
     <form role="form">
         <input type="text" class="form-control" placeholder="İsim giriniz" name="name" style="padding: 8px;width: 200px;">
     </form>
-    <button type="button" id="nameadd">Kaydet</button>
+    <button type="button" >Kaydet</button>
         </div>
+      </div>
         <div></div>
     <ul class="list-unstyled" id="todo"></ul>
     <!--  İSİM EKLEME BİTTİ-->
@@ -94,6 +96,8 @@
       imgFileRes.style.visibility ="hidden";
       kar.style.visibility="visible";// karıştır butonu
       nameadd.style.visibility="hidden";//isim ekleme kısmı
+      nameadd.style.position = "absolute";
+      imgFileRes.style.position="absolute";
       
     });
 

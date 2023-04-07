@@ -173,10 +173,10 @@ function splitImage() {
           button_element.innerHTML = secondNodeValue;
           //değeri düğümde değiştir
           firstNode.value = secondNodeValue;
-          secondNode.value = tempFirstNodeValue;
+          secondNode.value = tempFirstNodeValue;  
           // daha sonra butonları bulmak için ID'leri değiştir
-          firstNode.ID = secondNodeID;
-          secondNode.ID = tempFirstNodeID;
+          // firstNode.ID = secondNodeID;
+          // secondNode.ID = tempFirstNodeID;
           console.log("birincinin id si ", firstNode.ID);
           console.log("2.nin id si ", secondNode.ID);
           const button_element2 = document.getElementById(secondbuttonID);
@@ -241,14 +241,18 @@ function shuffle(head, randomGrid) {
     return 0.5 - Math.random();
   });
 
+
   // Bağlı listedeki elemanların image değerlerini karıştırılmış diziye göre güncelle
   currentNode = head;
   var i = 0;
   while (currentNode !== null) {
     // Belirli bir elemanın image değerini değiştirmemek için kontrol sağla
     if (currentNode.value !== randomGrid) {
+      
       currentNode.value = imageArray[i];
-      i++;
+      console.log(currentNode.ID);
+      
+      i++;  
     }
     currentNode = currentNode.next;
   }
@@ -268,12 +272,13 @@ function findNodesWithValue(head, reqID) {
 
 function compareLists(head1, head2) {
   var score = 0;
-  console.log(head1.south.value);
+  
   let placedNodes = [];
   let currentNode = head2; // başlangıç düğümü
   while (currentNode !== null) {
     if (currentNode.placed === true) {
       placedNodes.push(currentNode);
+      console.log("doğru olan düğümler: " , placedNodes)
     }
     currentNode = currentNode.next;
   }
@@ -281,88 +286,113 @@ function compareLists(head1, head2) {
   // node1 ise orijinal listede ona karşılık gelen düğüm.
   function findMatchingNode(node2, head1) {
     let node1 = head1;
+    let result = [];
 
     while (node1 !== null) {
+      if(node2.value === node1.value){
+        console.log(node2.ID);
       if (
         node1.north !== null &&
         node2.north !== null &&
         node2.north.value === node1.north.value
       ) {
-        return node2.north;
+        console.log(node2.north);
+        result.push(node2.north);
       }
       if (
         node1.northeast !== null &&
         node2.northeast !== null &&
         node2.northeast.value === node1.northeast.value
       ) {
-        return node2.northeast;
+        console.log(node2.northeast);
+        result.push(node2.northeast)
       }
       if (
         node1.east !== null &&
         node2.east !== null &&
         node2.east.value === node1.east.value
       ) {
-        return node2.east;
+        console.log(node2.east);
+        result.push(node2.east)
       }
       if (
         node1.southeast !== null &&
         node2.southeast !== null &&
         node2.southeast.value === node1.southeast.value
       ) {
-        return node2.southeast;
+        console.log(node2.southeast);
+        result.push(node2.southeast)
       }
       if (
         node1.south !== null &&
         node2.south !== null &&
         node2.south.value === node1.south.value
       ) {
-        return node2.south;
+        console.log(node2.south);
+        result.push(node2.south)
       }
       if (
         node1.southwest !== null &&
         node2.southwest !== null &&
         node2.southwest.value === node1.southwest.value
       ) {
-        return node2.southwest;
+        console.log(node2.southwest);
+        result.push(node2.southwest)
       }
       if (
         node1.west !== null &&
         node2.west !== null &&
         node2.west.value === node1.west.value
       ) {
-        return node2.west;
+        console.log(node2.west);
+        result.push(node2.west)
       }
       if (
         node1.northwest !== null &&
         node2.northwest !== null &&
         node2.northwest.value === node1.northwest.value
       ) {
-        return node2.northwest;
+        console.log(node2.northwest);
+        result.push(node2.northwest)
       }
-
+    }
       node1 = node1.next;
     }
-    return null; // eşleşme yok
+    console.log("result döndü: ", result.length, " " , result)
+    return result;
+    
+    
   }
 
   for (let i = 0; i < placedNodes.length; i++) {
     let currentNode = placedNodes[i];
-    let matchingNode = findMatchingNode(currentNode, head1);
+    let matchingNodes = findMatchingNode(currentNode, head1);
+    for(let i=0;i<matchingNodes.length;i++){
+      let matchingNode =matchingNodes[i];
     if (matchingNode !== null && matchingNode.placed !== true) {
-      // koşul sağlandı
+      
       matchingNode.placed = true;
+      if(matchingNode.placed == true){
       placedNodes.push(matchingNode);
-      //ilgili butonu kilitle
+      console.log("diziye atilan düğüm: ", matchingNode.ID);
+
       var kilitlenecekID = matchingNode.ID;
+      console.log("kitlenecek" , kilitlenecekID);
+
       const kilitlenecek = document.getElementById(kilitlenecekID);
       kilitlenecek.disabled = true;
       kilitlenecek.style.backgroundColor = "rgba(0,255,0,1)";
+      }
+      
+      //ilgili butonu kilitle
+      // var kilitlenecekID = matchingNode.ID;
+      
 
       score += 5;
     } else {
       score -= 10;
     }
-  }
+  }}
   return score;
 }
 
