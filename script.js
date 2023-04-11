@@ -226,6 +226,7 @@ function splitImage() {
     ilkButton.style.backgroundColor = "rgba(0,255,0,1)";
   });
 
+
 }
 
 function shuffle(head, randomGrid) {
@@ -375,7 +376,7 @@ function compareLists(head1, head2) {
     for (let i = 0; i < matchingNodes.length; i++) {
       let matchingNode = matchingNodes[i];
       if (matchingNode !== null && matchingNode.placed !== true) {
-
+        var tempLength = placedNodes.length;
         matchingNode.placed = true;
         if (matchingNode.placed == true) {
           placedNodes.push(matchingNode);
@@ -390,7 +391,6 @@ function compareLists(head1, head2) {
           kilitlenecek.style.backgroundColor = "rgba(0,255,0,1)";
           
         }
-
         //ilgili butonu kilitle
         // var kilitlenecekID = matchingNode.ID;
 
@@ -403,15 +403,14 @@ function compareLists(head1, head2) {
   return score;
 }
 let timerInterval;
-
+let seconds = 0;
 function startTimer() {
-  let seconds = 0;
   const timerElement = document.getElementById('timer');
 
   timerInterval = setInterval(() => {
-    seconds++;
-    timerElement.innerText = seconds;
+
   }, 1000);
+  return seconds;
 }
 
 function stopTimer() {
@@ -429,6 +428,7 @@ function countMove() {
   moveCount++;
   const moveCountElement = document.getElementById('moveCount');
   moveCountElement.innerText = moveCount;
+  return moveCount;
 }
 
 
@@ -446,11 +446,37 @@ function endGame() {
   if (truelist.length >= 15) {
     
     clearInterval(timerInterval); // zamanlayıcıyı durdur
-    document.getElementById("moveCount").innerHTML += " Oyun bitti!"; // hamle sayısını güncelle
-    alert("Tebrikler! Oyunu tamamladınız!"); // kullanıcıyı tebrik etmek için bir mesaj göster
+     
+    var popUp = document.getElementById("popUp");
+    popUp.style.display = "block";
   }
 }
 
+function gamedata(playerName, score, moveCount, time) {
+  const scoreboard = document.getElementById("scoreboard");
+  const row = scoreboard.insertRow(1);
+
+  const nameCell = row.insertCell(0);
+  nameCell.innerText = playerName;
+
+  const scoreCell = row.insertCell(1);
+  scoreCell.innerText = score.toString();
+
+  const moveCell = row.insertCell(2);
+  moveCell.innerText = moveCount.toString();
+
+  const timeCell = row.insertCell(3);
+  timeCell.innerText = time.toString();
+
+  // Tabloyu puanına göre sıralama kodu
+  const rows = Array.from(scoreboard.rows).slice(1);
+  rows.sort((row1, row2) => {
+    const score1 = parseInt(row1.cells[1].innerText);
+    const score2 = parseInt(row2.cells[1].innerText);
+    return score2 - score1;
+  });
+  scoreboard.tBodies[0].append(...rows);
+}
 
 
 
